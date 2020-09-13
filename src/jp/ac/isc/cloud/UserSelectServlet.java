@@ -1,11 +1,20 @@
 package jp.ac.isc.cloud;
 
-import java.io.*;
-import java.sql.*;
-import java.util.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 public class UserSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -38,20 +47,24 @@ public class UserSelectServlet extends HttpServlet {
 				state.close();	//SQLを送信したStatementを閉じる
 				users.close();  //DB接続を閉じる
 				request.setAttribute("list",list);
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/select.jsp");
+				RequestDispatcher rd =
+						getServletContext().getRequestDispatcher("/WEB-INF/select.jsp");
 				rd.forward(request,response);
 			//クラスが存在しなかったらエラーを表示
 			}catch(ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-			//SQL実行時エラーが発生したら、エラーを表示
-			}catch(SQLException e) {
-				e.printStackTrace();
-			}
+		//SQL実行時エラーが発生したら、エラーを表示
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 
 }
+
+
