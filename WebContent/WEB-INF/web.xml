@@ -78,8 +78,7 @@
 
 	</servlet-mapping>
 
-
-	<servlet>
+<servlet>
 
 		<servlet-name>Update</servlet-name>
 
